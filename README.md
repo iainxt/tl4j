@@ -49,6 +49,19 @@ and `org.tl4j.LogContext.finish` as late as you can. e.g.:
                  org.tl4j.LogContext.finish(outcome);
              }
 ```
+## Log ip address
+By default it will log the IP address that the client *appears* to come from.
+
+TODO support this scenario
+If you have a load balancer, then it is essential that you configure the load balancer to include the
+[X-Forwarded-For|https://en.wikipedia.org/wiki/X-Forwarded-For] htttp header to log the client,
+and not the load balancer IP. If you do this, add the following line to the web.xml configuration:
+```
+TODO
+```
+X-Forwarded-For may include multiple IP's, the first being the actual client but is easily spoofed and the
+last being that set by your load balancer and *trusted*. All IP's are logged as they appear in the header.
+
 ## Log user and other business contexts
 Not Implemented Yet, but the plan is:
 
@@ -76,7 +89,7 @@ IT department in locating the relevant log messages.
 e.g.
 > Sorry, something went wrong. Please try again, or if the problem persists please contact IT and quote **C3VNUF**.
 
-## Logging Frameworks
+# Logging Frameworks
 Currently only SL4J is supported.
 
 The intent is to support the common frameworks, sl4j, log4j, and logback. I'm tempted to do this via
@@ -84,9 +97,9 @@ reflection to avoid having a different project for each one. More research is re
 
 http://axelfontaine.com/blog/optional-dependencies.html
 
-### sl4j
-### log4j
-### logback
+## sl4j
+## log4j
+## logback
 
 # Log Viewers
 To make the most of the data its best to something better than a text viewer.
