@@ -9,17 +9,12 @@ import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Iain
- * Date: 23/12/14
- * Time: 11:43 AM
- * To change this template use File | Settings | File Templates.
+ * sl4j implementation of LogContextAdapter
  */
 public class LogContext implements LogContextAdapter {
 
     private Logger logger = LoggerFactory.getLogger(org.tl4j.LogContext.class);
 
-    @Override
     public void start(String protocol, String method, String url, String origin) {
 
         org.slf4j.MDC.put(org.tl4j.LogContext.CONTEXT_METHOD,method);
@@ -34,7 +29,6 @@ public class LogContext implements LogContextAdapter {
 
     }
 
-    @Override
     public void reset() {
         org.slf4j.MDC.put(org.tl4j.LogContext.CONTEXT_METHOD, null);
         org.slf4j.MDC.put(org.tl4j.LogContext.CONTEXT_PROTOCOL, null);
@@ -44,7 +38,6 @@ public class LogContext implements LogContextAdapter {
         org.slf4j.MDC.put(org.tl4j.LogContext.CONTEXT_ORIGIN, null);
     }
 
-    @Override
     public void finish(String result) {
         long finish = System.nanoTime();
         String start =  org.slf4j.MDC.get(org.tl4j.LogContext.CONTEXT_START_TICKS);
@@ -59,7 +52,6 @@ public class LogContext implements LogContextAdapter {
         logger.info(logMsg);
     }
 
-    @Override
     public String getContext(String name) {
         return org.slf4j.MDC.get(name);
     }

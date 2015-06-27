@@ -1,7 +1,6 @@
 package org.tl4j;
 
 /**
- * Hello world!
  *
  */
 public class LogContext
@@ -13,6 +12,9 @@ public class LogContext
     public static String CONTEXT_START_TICKS = "startns";
     public static String CONTEXT_ORIGIN = "origin";
 
+    /**
+     * This is currently set by the static method below.
+     */
     static LogContextAdapter logContextAdapter;
 
     public static void start(String protocol, String method, String url, String origin) {
@@ -31,7 +33,7 @@ public class LogContext
         return logContextAdapter.getContext(name);
     }
 
-    static {
-        logContextAdapter = new org.tl4j.sl4j.LogContext();
+    public static void setAdapter(LogContextAdapter adapter) {
+        logContextAdapter = adapter;
     }
 }

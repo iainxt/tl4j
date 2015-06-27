@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Iain
- * Date: 23/12/14
- * Time: 11:53 AM
- * To change this template use File | Settings | File Templates.
+ * A token generator that is 'unique enough' and that a human can read and communicated via voice.
+ *
  */
 public class HumanToken {
 
     private static ArrayList<Character> niceCharacters = new ArrayList<Character>();
     private static Random random = new Random();
-    private static int LENGTH = 6;// 6 should be enough, 1BIL combinations
+    private static int LENGTH = 10;// 10 should be enough
     static
     {
         buildNiceCharacters();
@@ -22,7 +19,21 @@ public class HumanToken {
     /**
      * Generate a random human transferable string using 0-9 A-Z without easily confused characters 0,O,1,I.
      *
-     * These tokens will not be unique, but should be unique enough with 1 billion combinations.
+     * Lower case is not used, as it makes communicating the token more difficult.
+     *
+     * These tokens will not be unique.
+     *
+     * Collisions:
+     * Given there are 32 characters, the number of tokens generated to have a 50% chance of a collision is:
+     * Token Size | Combinations | 50% chance of collision
+     * 4  | 1M  | 800
+     * 6  | 1G  | 24k
+     * 8  | 1T  | 813k
+     * 10 | 1P  | 26M
+     * 12 | 1E  | 833M
+     *
+     * Calculation as per:
+     * http://stackoverflow.com/questions/7591117/what-is-the-probability-of-collision-with-a-6-digit-random-alphanumeric-code
      *
      * @return
      */
